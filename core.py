@@ -59,21 +59,13 @@ text_splitter = RecursiveCharacterTextSplitter(
 # Enhanced Supabase initialization with better error handling
 def init_supabase() -> Client:
     """Initialize Supabase client with comprehensive error handling"""
-    try:
-        supabase_url = os.getenv("SUPABASE_URL")
-        supabase_key = os.getenv("SUPABASE_KEY")
-        
-        if not supabase_url or not supabase_key:
-            logger.error("Supabase credentials missing from environment variables")
-            raise ValueError("Supabase URL and key must be set in environment variables")
-        
-        client = create_client(supabase_url, supabase_key)
-        logger.info("Supabase client initialized successfully")
-        return client
-        
-    except Exception as e:
-        logger.error(f"Failed to initialize Supabase client: {e}")
-        raise
+    supabase_url = os.getenv("SUPABASE_URL")
+    supabase_key = os.getenv("SUPABASE_KEY")
+
+    if not supabase_url or not supabase_key:
+        raise ValueError("Supabase URL and key must be set in environment variables. Please check your .env file or deployment settings.")
+
+    return create_client(supabase_url, supabase_key)
 
 supabase = init_supabase()
 
