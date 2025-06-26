@@ -110,7 +110,8 @@ def load_and_process_document(file_path: str) -> FAISS:
 
 # Initialize knowledge base with error handling
 try:
-    srb_vdb1 = load_and_process_document(r"C:\Users\AMISH\Downloads\SRB 2023-24_04.10.2023.pdf")
+    # Use relative path for cross-platform compatibility
+    srb_vdb1 = load_and_process_document(os.path.join(os.getcwd(), "SRB 2023-24_04.10.2023.pdf"))
     logger.info("Knowledge base initialized successfully")
 except Exception as e:
     logger.error(f"Error initializing knowledge base: {e}")
